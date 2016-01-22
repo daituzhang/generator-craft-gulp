@@ -104,8 +104,8 @@ var CraftGenerator = yeoman.generators.Base.extend({
     this.mkdir('public/images');
 
     this.template('_package.json', 'package.json');
-    this.template('_bower.json', 'bower.json');
     this.template('_general.php','craft/config/general.php');
+    this.template('_db.php', 'craft/config/db.php');
     this.template('_db.php', 'craft/config/db.php');
     this.template('gitignore','.gitignore');
   },
@@ -169,10 +169,11 @@ var CraftGenerator = yeoman.generators.Base.extend({
   },
 
   projectfiles: function () {
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
+    this.copy('_gulpfile.js', 'gulpfile.js');
+    this.copy('_webpack.config.js', 'webpack.config.js');
+    this.copy('_config.js', 'config.js');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
-    this.copy('bowerrc', '.bowerrc');
   },
 
   _finish : function () {

@@ -49,9 +49,10 @@
 	{% block content %}{% endblock %}
 	{% block footer %}{% endblock %}
 	{% block scripts_start %}{% endblock %}
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<script src="/bower_components/requirejs/require.js" data-main="{{ craft.config.environmentVariables['frontEndAssets'] }}js/site.js"></script>
-	{% block body_end %}{% endblock %}
-	{% if craft.config.environmentVariables['env'] == 'dev' %}<script src="http://localhost:35729/livereload.js"></script>{% endif %}
+    <!--  libraries downloaded from cdn -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!--  end: libraries downloaded from cdn -->
+	<script src="{{ craft.config.environmentVariables['frontEndAssets'] }}js/vendor.js"></script>
+  <script src="{{ craft.config.environmentVariables['frontEndAssets'] }}js/app.js"></script>
 </body>
 </html>
