@@ -1,25 +1,21 @@
 'use strict';
 var util = require('util');
-//var _ = require('lodash');
 var path = require('path');
 var proc = require('child_process');
 var rimraf = require('rimraf');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var mkdirp = require('mkdirp')
-console.log('coma');
 
 var CraftGenerator = yeoman.generators.Base.extend({
   initializing: function () {
     var generator = this;
     this.pkg = require('../package.json');
-
-
     
   },
 
   prompting: function () {
-    var cb = this.async();
+    var done = this.async();
 
     console.log( chalk.green(this.read('messages/_start'), {}) );
 
@@ -82,7 +78,9 @@ var CraftGenerator = yeoman.generators.Base.extend({
       this.gridSystem = props.gridSystem;
       this.portHost= '8080';
       this.portDb = '3306';
-      cb();
+      this.vagSet =  'sudo apt-get update | sudo apt-get install php5-mcrypt php5-curl -qq | sudo php5enmod mcrypt | sudo cp /vagrant/vhost.conf /etc/apache2/sites-available/000-default.conf | sudo ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf | sudo a2enmod rewrite | sudo a2enmod php5 | sudo mkdir /vagrant/craft/storage | sudo service apache2 restart | mysql -u root -e "create database'
+                    + this.dbName + '"' ;
+      done();
     }.bind(this));
   },
   default: function(){
@@ -137,6 +135,11 @@ var CraftGenerator = yeoman.generators.Base.extend({
         { siteName: this.siteName.replace(/\s+/g, '-') }
       );
       this.fs.copyTpl(
+        this.templatePath('_bower.json'),
+        this.destinationPath('bower.json'),
+        { siteName: this.siteName.replace(/\s+/g, '-') }
+      );
+      this.fs.copyTpl(
         this.templatePath('_general.php'),
         this.destinationPath('craft/config/general.php'),
         { siteName: this.siteName }
@@ -183,11 +186,6 @@ var CraftGenerator = yeoman.generators.Base.extend({
         this.templatePath('tmp/vhost.conf'),
         this.destinationPath('vhost.conf')
       );
-      this.fs.copyTpl(
-        this.templatePath('tmp/setup.sh'),
-        this.destinationPath('setup.sh'),
-        { dbName: this.dbName }
-      );
     },
     vagrant: function () {
       var generator = this;
@@ -201,7 +199,7 @@ var CraftGenerator = yeoman.generators.Base.extend({
             generator.log('Cloning the Vagrant box. This could take a while...');
             proc.exec('vagrant up --machine-readable', function (error, stdout, stderr) {
               generator.log('Running some commands to set up the box...');
-              proc.exec('vagrant ssh --machine-readable -c "sh /vagrant/setup.sh"', function (error, stdout, stderr) {
+              proc.exec('vagrant ssh --machine-readable -c "' + generator.vagSet +'"', function (error, stdout, stderr) {
                 var done2 = generator.async();
                 proc.exec('vagrant port --guest 80', function (error, stdout, stderr) {
                   if(stdout) {
@@ -274,7 +272,6 @@ var CraftGenerator = yeoman.generators.Base.extend({
     clean : function() {
       this.log('Cleaning up...');
       rimraf.sync('vhost.conf');
-      //rimraf.sync('setup.sh');
     },
     finish : function () {
       var done = this.async();

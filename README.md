@@ -1,6 +1,7 @@
 # generator-craft [![Build Status](https://travis-ci.org/ktbartholomew/generator-craft.svg?branch=master)](https://travis-ci.org/ktbartholomew/generator-craft)
 
-> A Yeoman generator that creates a Vagrant box, then installs the Craft CMS and some front-end tools.
+> A Yeoman generator that creates a Vagrant box, then installs the Craft CMS and some front-end tools.  
+An updated and gulp version for generator-craft that built on https://github.com/ktbartholomew/generator-craft
 
 ## Pre-requisites
 
@@ -41,6 +42,15 @@ Assuming you forward port 8080 on your host to port 80 on the guest, you would t
 
 **User:** admin <br>
 **Pass:** password
+
+
+## Gulp build structure  
+* Using Gulp for sass and image minifizing  
+* Using Webpack for javascript
+* Using browser sync for syncing the changes to browser
+Run `gulp` for dev enviroment
+Run `gulp build` to minifize
+Add `--lint` as condition to turn on linter
 
 ## Notes
 
