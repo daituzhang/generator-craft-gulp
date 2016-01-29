@@ -1,11 +1,11 @@
-# generator-craft [![Build Status](https://travis-ci.org/ktbartholomew/generator-craft.svg?branch=master)](https://travis-ci.org/ktbartholomew/generator-craft)
+# generator-craft-gulp
 
 > A Yeoman generator that creates a Vagrant box, then installs the Craft CMS and some front-end tools.  
 An updated and gulp version for generator-craft that built on https://github.com/ktbartholomew/generator-craft
 
 ## Pre-requisites
 
-`generator-craft` makes a number of assumptions about your environment:
+`generator-craft-gulp` makes a number of assumptions about your environment:
 
 * You have Vagrant installed
 * You have a Vagrant box that runs a recent version of Ubuntu (I test on 14.04)
@@ -20,9 +20,9 @@ An updated and gulp version for generator-craft that built on https://github.com
 
 And, of course you need node, npm, Grunt, Yeoman...all the usual goodies. To use Grunt as intended, you'll need the Compass gem installed.
 
-## Using generator-craft
+## Using generator-craft-gulp
 
-Just run `yo craft` and answer the appropriate prompts. Be sure to use the name of a Vagrant box that actually exists.
+Just run `yo craft-gulp` and answer the appropriate prompts. Be sure to use the name of a Vagrant box that actually exists.
 
 ```
 $ yo craft

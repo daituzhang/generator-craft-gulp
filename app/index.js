@@ -24,7 +24,7 @@ var CraftGenerator = yeoman.generators.Base.extend({
         type: 'text',
         name: 'boxName',
         message: 'What is the name of the Vagrant box you wish to import?',
-        default: '70kft/lamp',
+        default: 'lamp3',
       },
       {
         type: 'text',
@@ -189,7 +189,7 @@ var CraftGenerator = yeoman.generators.Base.extend({
     },
     vagrant: function () {
       var generator = this;
-      var done = this.async();
+      var done2 = this.async();
       proc.exec('vagrant box list --machine-readable', function (error, stdout, stderr) {
         if( stdout.indexOf(generator.boxName) != -1) {
           // The box exists. run `vagrant init` for this box.
@@ -200,11 +200,11 @@ var CraftGenerator = yeoman.generators.Base.extend({
             proc.exec('vagrant up --machine-readable', function (error, stdout, stderr) {
               generator.log('Running some commands to set up the box...');
               proc.exec('vagrant ssh --machine-readable -c "' + generator.vagSet +'"', function (error, stdout, stderr) {
-                var done2 = generator.async();
+                var done3 = generator.async();
                 proc.exec('vagrant port --guest 80', function (error, stdout, stderr) {
                   if(stdout) {
                     generator.portHost = stdout.replace(/(\r\n|\n|\r)/gm,'');
-                    done2();
+                    done3();
                   }
                   else {
                     return false;
@@ -214,7 +214,7 @@ var CraftGenerator = yeoman.generators.Base.extend({
                 proc.exec('vagrant port --guest 3306', function (error, stdout, stderr) {
                   if(stdout) {
                     generator.portDb = stdout.replace(/(\r\n|\n|\r)/gm,'');
-                    done();
+                    done2();
                   }
                   else {
                     return false;
