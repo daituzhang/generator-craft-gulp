@@ -1,5 +1,5 @@
 module.exports = {
-  domain: 'craft.dev:2200',
+  domain: 'craft.dev:<%= portHost %>',
   webpack: require('./webpack.config'),
   paths: {
     input: {

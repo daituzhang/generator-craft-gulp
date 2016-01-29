@@ -7,10 +7,11 @@ var rename = require('gulp-rename');
 
 
 //sass
+var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var csslint = require('gulp-csslint');
-var minifyCss = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
 
 //images
 var imagemin = require('gulp-imagemin');
@@ -55,7 +56,9 @@ gulp.task('sass-build', function () {
       browsers: ['last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
       cascade: false
     }))
-    .pipe(minifyCss({compatibility: 'ie9'}))
+    .pipe(sourcemaps.init())
+    .pipe(cssnano())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.output.cssBuild))
     .pipe(browserSync.stream());
 });

@@ -12,5 +12,4 @@ sudo a2enmod php5
 sudo mkdir /vagrant/craft/storage
 sudo service apache2 restart
 
-mysql -u root < /vagrant/pre_db.sql
-mysql -u root <%= dbName %> < /vagrant/craft.sql
+mysql -u root -e "create database <%= dbName %>"
