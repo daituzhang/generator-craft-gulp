@@ -47,9 +47,11 @@ Assuming you forward port 8080 on your host to port 80 on the guest, you would t
 ## Gulp build structure  
 * Using Gulp for sass and image minifizing  
 * Using Webpack for javascript
-* Using browser sync for syncing the changes to browser
-Run `gulp` for dev enviroment
-Run `gulp build` to minifize
+* Using browser sync for syncing the changes to browser  
+
+
+Run `gulp` for dev enviroment  
+Run `gulp build` to minifize  
 Add `--lint` as condition to turn on linter
 
 ## Notes
